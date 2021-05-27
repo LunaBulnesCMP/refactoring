@@ -1,0 +1,8 @@
+node_modules
+npm-debug*
+.nuxt
+vendor
+data/db
+ops/docker/db-migration.sh
+ops/docker/run-dev.sh
+ops/docker/run-prod.sh
