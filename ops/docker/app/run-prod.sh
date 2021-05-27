@@ -8,7 +8,7 @@ extension = "newrelic.so"
 newrelic.license = "${NEWRELIC_LICENSE_KEY}"
 newrelic.logfile = "/proc/self/fd/2"
 newrelic.loglevel = "warning"
-newrelic.appname = "kajabi_scrapping"
+newrelic.appname = "course"
 newrelic.daemon.address = "${NEWRELIC_DAEMON_HOST}:${NEWRELIC_DAEMON_PORT}"
 EOF
 fi
