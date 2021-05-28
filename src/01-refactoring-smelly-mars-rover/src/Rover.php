@@ -64,13 +64,13 @@ class Rover
                 $displacement = $displacement1;
 
                 if ($this->isFacingNorth()) {
-                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() + $displacement);
+                    $this->coordinates->moveAlongY( $displacement);
                 } elseif ($this->isFacingSouth()) {
-                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() - $displacement);
+                    $this->coordinates->moveAlongY( - $displacement);
                 } elseif ($this->isFacingWest()) {
-                    $this->setCoordinates($this->coordinates->x() - $displacement, $this->coordinates->y());
+                    $this->coordinates->moveAlongX( - $displacement);
                 } else {
-                    $this->setCoordinates($this->coordinates->x() + $displacement, $this->coordinates->y());
+                    $this->coordinates->moveAlongX( $displacement);
                 }
             }
         }

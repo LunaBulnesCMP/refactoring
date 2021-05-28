@@ -27,4 +27,12 @@ class Coordinates
     {
         return $this->y;
     }
+
+    public function moveAlongX($displacement) {
+        $this->x += $displacement;
+    }
+
+    public function moveAlongY($displacement) {
+        $this->y += $displacement;
+    }
 }
