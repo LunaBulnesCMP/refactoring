@@ -15,17 +15,11 @@ class Rover
     public function __construct(int $x, int $y, string $direction)
     {
         $this->setDirection($direction);
-        $this->setCoordinates($x, $y);
+        $this->coordinates = new Coordinates($x, $y);
     }
     private function setDirection(string $direction): void
     {
         $this->directionType = new Direction($direction);
-    }
-
-    private function setCoordinates(int $x, int $y): void
-    {
-
-        $this->coordinates = new Coordinates($x, $y);
     }
 
     public function receive(string $commandsSequence): void
