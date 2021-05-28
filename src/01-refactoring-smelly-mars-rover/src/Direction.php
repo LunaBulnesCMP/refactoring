@@ -2,32 +2,49 @@
 
 namespace App;
 
-class Direction
+abstract class Direction
 {
-    public const EAST = "E";
-    public const WEST = "W";
-    public const NORTH = "N";
-    public const SOUTH = "S";
+    private const WEST = "W";
+    private const NORTH = "N";
+    private const SOUTH = "S";
 
-    private string $direction;
+    abstract public function rotateRight(): Direction;
 
-    public function __construct(string $direction)
+    abstract public function rotateLeft(): Direction;
+
+    abstract public function move(Coordinates $coordinates, int $displacement): void;
+
+    public static function create(string $direction)
     {
-        $this->direction = $direction;
+        if ($direction === Direction::NORTH) {
+            return self::createNorth();
+        }
+        if ($direction === Direction::SOUTH) {
+            return self::createSouth();
+        }
+        if ($direction === Direction::WEST) {
+            return self::createWest();
+        }
+        return self::createEast();
     }
 
-    public function isNorth(): bool
+    protected static function createNorth(): North
     {
-        return $this->direction === self::NORTH;
+        return new North();
     }
 
-    public function isSouth(): bool
+    protected static function createSouth(): South
     {
-        return $this->direction === self::SOUTH;
+        return new South();
     }
 
-    public function isWest(): bool
+    protected static function createWest(): West
     {
-        return $this->direction === self::WEST;
+        return new West();
+    }
+
+    protected static function createEast(): East
+    {
+        return new East();
     }
 }
