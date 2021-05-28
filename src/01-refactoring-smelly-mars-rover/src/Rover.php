@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App;
 
 class Rover
@@ -10,20 +9,23 @@ class Rover
     const RIGHT = "r";
 
     private Direction $directionType;
+    private Coordinates $coordinates;
 
-    private int $y;
-    private int $x;
 
     public function __construct(int $x, int $y, string $direction)
     {
         $this->setDirection($direction);
-        $this->y = $y;
-        $this->x = $x;
+        $this->setCoordinates($x, $y);
     }
-
     private function setDirection(string $direction): void
     {
         $this->directionType = new Direction($direction);
+    }
+
+    private function setCoordinates(int $x, int $y): void
+    {
+
+        $this->coordinates = new Coordinates($x, $y);
     }
 
     public function receive(string $commandsSequence): void
@@ -56,20 +58,19 @@ class Rover
             } else {
                 // Displace Rover
                 $displacement1 = -1;
-
                 if ($command === "f") {
                     $displacement1 = 1;
                 }
                 $displacement = $displacement1;
 
                 if ($this->isFacingNorth()) {
-                    $this->y += $displacement;
+                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() + $displacement);
                 } elseif ($this->isFacingSouth()) {
-                    $this->y -= $displacement;
+                    $this->setCoordinates($this->coordinates->x(), $this->coordinates->y() - $displacement);
                 } elseif ($this->isFacingWest()) {
-                    $this->x -= $displacement;
+                    $this->setCoordinates($this->coordinates->x() - $displacement, $this->coordinates->y());
                 } else {
-                    $this->x += $displacement;
+                    $this->setCoordinates($this->coordinates->x() + $displacement, $this->coordinates->y());
                 }
             }
         }
@@ -84,7 +85,6 @@ class Rover
     {
         return $this->directionType->isSouth();
     }
-
     private function isFacingWest(): bool
     {
         return $this->directionType->isWest();
