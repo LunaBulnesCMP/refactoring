@@ -8,10 +8,6 @@ class Rover
 {
     const LEFT = "l";
     const RIGHT = "r";
-    const EAST = "E";
-    const WEST = "W";
-    const NORTH = "N";
-    const SOUTH = "S";
 
     private Direction $directionType;
 
@@ -28,6 +24,7 @@ class Rover
 
     private function setDirection(string $direction): void
     {
+        $this->directionType = new Direction($direction);
         $this->direction = $direction;
     }
 
@@ -38,33 +35,25 @@ class Rover
             $command = substr($commandsSequence, $i, 1);
             if ($command === self::RIGHT) {
                 // Rotate Rover
-                switch ($this->direction) {
-                    case self::NORTH:
-                        $this->setDirection(self::EAST);
-                        break;
-                    case self::SOUTH:
-                        $this->setDirection(self::WEST);
-                        break;
-                    case self::WEST:
-                        $this->setDirection(self::NORTH);
-                        break;
-                    default:
-                        $this->setDirection(self::SOUTH);
+                if ($this->isFacingNorth()) {
+                    $this->setDirection(Direction::EAST);
+                } elseif ($this->isFacingSouth()) {
+                    $this->setDirection(Direction::WEST);
+                } elseif ($this->isFacingWest()) {
+                    $this->setDirection(Direction::NORTH);
+                } else {
+                    $this->setDirection(Direction::SOUTH);
                 }
             } else if ($command === self::LEFT) {
                 // Rotate Rover
-                switch ($this->direction) {
-                    case self::NORTH:
-                        $this->setDirection(self::WEST);
-                        break;
-                    case self::SOUTH:
-                        $this->setDirection(self::EAST);
-                        break;
-                    case self::WEST:
-                        $this->setDirection(self::SOUTH);
-                        break;
-                    default:
-                        $this->setDirection(self::NORTH);
+                if ($this->isFacingNorth()) {
+                    $this->setDirection(Direction::WEST);
+                } elseif ($this->isFacingSouth()) {
+                    $this->setDirection(Direction::EAST);
+                } elseif ($this->isFacingWest()) {
+                    $this->setDirection(Direction::SOUTH);
+                } else {
+                    $this->setDirection(Direction::NORTH);
                 }
             } else {
                 // Displace Rover
@@ -75,20 +64,31 @@ class Rover
                 }
                 $displacement = $displacement1;
 
-                switch ($this->direction) {
-                    case self::NORTH:
-                        $this->y += $displacement;
-                        break;
-                    case self::SOUTH:
-                        $this->y -= $displacement;
-                        break;
-                    case self::WEST:
-                        $this->x -= $displacement;
-                        break;
-                    default:
-                        $this->x += $displacement;
+                if ($this->isFacingNorth()) {
+                    $this->y += $displacement;
+                } elseif ($this->isFacingSouth()) {
+                    $this->y -= $displacement;
+                } elseif ($this->isFacingWest()) {
+                    $this->x -= $displacement;
+                } else {
+                    $this->x += $displacement;
                 }
             }
         }
+    }
+
+    private function isFacingNorth(): bool
+    {
+        return $this->directionType->isNorth();
+    }
+
+    private function isFacingSouth(): bool
+    {
+        return $this->directionType->isSouth();
+    }
+
+    private function isFacingWest(): bool
+    {
+        return $this->directionType->isWest();
     }
 }
