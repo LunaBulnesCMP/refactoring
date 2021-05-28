@@ -4,3 +4,6 @@
 */.phpunit.result.cache
 .idea
 .DS_Store
+*/src/*/vendor
+*/src/*/.idea
+*/src/*/.phpunit.result.cache
