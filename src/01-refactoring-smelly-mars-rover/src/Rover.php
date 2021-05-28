@@ -11,7 +11,6 @@ class Rover
 
     private Direction $directionType;
 
-    private string $direction;
     private int $y;
     private int $x;
 
@@ -25,7 +24,6 @@ class Rover
     private function setDirection(string $direction): void
     {
         $this->directionType = new Direction($direction);
-        $this->direction = $direction;
     }
 
     public function receive(string $commandsSequence): void
